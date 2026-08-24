@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kundenbefragung Kaufprozess – Fragebogen, Dokumentation, Auswertung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1E21; --ink-2:#3D4247; --grey:#6E757C; --grey-light:#8E959B;
+  --rule:#B9BEC3; --hair:#DDE0E3; --field:#F7F8F8;
+  --accent:#1F4636; --accent-tint:#EDF2EF; --accent-line:#9FB6AC;
+  --ph:#F0EFEA; --ph-line:#C9C5B6;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;background:#E8EAEB;color:var(--ink);
+  font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;margin:0;line-height:1.2;font-weight:600;}
+p{margin:0 0 .75em;} ul,ol{margin:0 0 .75em;padding-left:1.15em;} li{margin-bottom:.3em;}
+strong{font-weight:600;}
+
+/* Platzhalter für Unternehmensangaben */
+.ph{background:var(--ph);border-bottom:1px solid var(--ph-line);padding:0 5px;color:#5C5747;white-space:nowrap;}
+
+/* Dokumentleiste */
+.docbar{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--rule);}
+.docbar-inner{max-width:960px;margin:0 auto;padding:0 44px;display:flex;align-items:stretch;}
+.docbar-id{display:flex;align-items:center;font-size:12.5px;color:var(--grey);padding:11px 0;margin-right:auto;}
+.docbar-id b{color:var(--ink);font-weight:600;}
+.navlink{background:none;border:none;border-bottom:2px solid transparent;font-family:inherit;font-size:14px;
+  color:var(--ink-2);padding:11px 15px 9px;cursor:pointer;}
+.navlink:hover{color:var(--accent);}
+.navlink[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);font-weight:600;}
+.navlink:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+
+/* Blatt */
+.sheet{max-width:960px;margin:26px auto 54px;background:#fff;border:1px solid var(--rule);box-shadow:0 1px 2px rgba(0,0,0,.05);}
+.panel[hidden]{display:none;}
+
+/* Briefkopf */
+.letterhead{padding:34px 56px 0;}
+.lh-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;}
+.firm{font-family:"Source Serif 4",serif;font-size:19px;font-weight:700;}
+.firm span{display:block;font-family:"Source Sans 3",sans-serif;font-size:12.5px;font-weight:400;color:var(--grey);margin-top:4px;}
+.formref{font-size:12px;color:var(--grey);text-align:right;line-height:1.9;}
+.formref b{color:var(--ink-2);font-weight:600;}
+.rule-double{border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);height:4px;margin-top:16px;}
+.title-area{padding:28px 56px 26px;border-bottom:1px solid var(--rule);}
+.kicker{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:9px;}
+.title-area h1{font-size:clamp(25px,3.4vw,34px);max-width:24ch;letter-spacing:-.01em;}
+.title-area .lead{margin-top:12px;color:var(--ink-2);max-width:68ch;font-size:16.5px;}
+.facts{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair);margin-top:24px;}
+.facts div{flex:1 1 140px;padding:11px 18px 11px 0;}
+.facts dt{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);margin-bottom:2px;}
+.facts dd{margin:0;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;}
+
+/* Einleitung */
+.preamble{padding:26px 56px;border-bottom:1px solid var(--rule);}
+.preamble h2{font-size:18px;margin-bottom:8px;}
+.preamble p{max-width:70ch;font-size:15.5px;color:var(--ink-2);}
+.notice{margin-top:18px;border:1px solid var(--accent-line);background:var(--accent-tint);padding:14px 18px;font-size:14.5px;color:#1A3A2D;}
+.notice b{color:var(--accent);}
+.notice-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:10px;font-size:13.5px;color:#2C4A3E;}
+
+/* Abschnitte und Fragen */
+.section{padding:30px 56px 6px;}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  border-bottom:2px solid var(--ink);padding-bottom:7px;flex-wrap:wrap;}
+.section-head h2{font-size:19px;}
+.section-head .of{font-size:12.5px;color:var(--grey);letter-spacing:.04em;text-transform:uppercase;font-variant-numeric:tabular-nums;}
+.section-note{font-size:14px;color:var(--grey);margin:9px 0 2px;}
+.q{display:grid;grid-template-columns:30px 1fr 128px;border-bottom:1px solid var(--hair);padding:15px 0 16px;column-gap:14px;}
+.q-num{font-size:14px;font-weight:600;color:var(--grey);font-variant-numeric:tabular-nums;padding-top:1px;}
+.q-text{font-size:16px;font-weight:600;margin-bottom:10px;letter-spacing:-.005em;}
+.q-hint{display:block;font-weight:400;font-size:13.5px;color:var(--grey);margin-top:3px;}
+.q-kind{font-family:"Source Serif 4",serif;font-style:italic;font-size:12.5px;color:var(--grey-light);
+  text-align:right;padding-left:14px;border-left:1px solid var(--hair);line-height:1.45;}
+.opts{display:flex;flex-wrap:wrap;gap:7px 26px;}
+.opt{display:inline-flex;align-items:flex-start;gap:8px;font-size:15px;cursor:pointer;color:var(--ink-2);}
+.opt:hover{color:var(--ink);}
+.opt .arrow{color:var(--grey);}
+input[type="radio"],input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:15px;height:15px;
+  margin:3px 0 0;flex:none;border:1px solid var(--ink-2);background:#fff;position:relative;cursor:pointer;}
+input[type="radio"]{border-radius:50%;}
+input[type="checkbox"]:checked,input[type="radio"]:checked{border-color:var(--accent);background:var(--accent);}
+input[type="checkbox"]:checked::after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
+  border:solid #fff;border-width:0 1.7px 1.7px 0;transform:rotate(42deg);}
+input[type="radio"]:checked::after{content:"";position:absolute;left:3.5px;top:3.5px;width:6px;height:6px;border-radius:50%;background:#fff;}
+input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.scale{display:flex;border:1px solid var(--rule);}
+.scale-item{flex:1 1 0;min-width:0;text-align:center;padding:8px 4px 9px;cursor:pointer;border-right:1px solid var(--hair);background:#fff;}
+.scale-item:last-child{border-right:none;}
+.scale-item:hover{background:var(--field);}
+.scale-item:has(input:checked){background:var(--accent-tint);box-shadow:inset 0 -3px 0 var(--accent);}
+.scale-item input{margin:0 auto 5px;display:block;}
+.scale-num{display:block;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;margin-bottom:2px;}
+.scale-lab{display:block;font-size:11px;color:var(--grey);line-height:1.25;min-height:28px;}
+.scale-item:has(input:checked) .scale-lab{color:var(--accent);}
+.scale-ends{display:flex;justify-content:space-between;font-size:12.5px;color:var(--grey);margin-top:6px;}
+.scale.wide .scale-lab{display:none;}
+.scale.wide .scale-item{padding:9px 2px;}
+.lines{border:1px solid var(--rule);background:var(--field);}
+textarea{width:100%;display:block;border:none;background:
+  repeating-linear-gradient(transparent,transparent 29px,var(--hair) 29px,var(--hair) 30px);
+  line-height:30px;padding:5px 12px 0;font-family:inherit;font-size:15px;color:var(--ink);resize:vertical;min-height:92px;}
+textarea:focus{outline:2px solid var(--accent);outline-offset:-2px;}
+
+/* Abschluss */
+.closing{padding:30px 56px 34px;border-top:2px solid var(--ink);margin-top:26px;background:var(--field);}
+.closing h2{font-size:19px;margin-bottom:10px;}
+.closing p{max-width:68ch;font-size:15.5px;color:var(--ink-2);}
+.return{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));margin-top:20px;border-top:1px solid var(--rule);}
+.return div{padding:13px 20px 13px 0;border-right:1px solid var(--hair);}
+.return div:last-child{border-right:none;}
+.return dt{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);margin-bottom:3px;}
+.return dd{margin:0;font-size:14.5px;line-height:1.7;}
+.signature{margin-top:26px;font-size:14px;color:var(--grey);}
+.sigline{border-bottom:1px solid var(--rule);width:230px;height:26px;margin-bottom:5px;}
+
+/* Statusleiste */
+.status{position:sticky;bottom:0;z-index:50;background:#fff;border-top:1px solid var(--rule);
+  padding:9px 56px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:13.5px;color:var(--grey);}
+.bar{flex:1 1 120px;min-width:90px;height:3px;background:var(--hair);}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s linear;}
+.btn{font-family:inherit;font-size:13.5px;border:1px solid var(--ink-2);background:#fff;color:var(--ink);padding:6px 14px;cursor:pointer;}
+.btn:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn-primary:hover{background:#173528;border-color:#173528;}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.toast{font-size:13.5px;color:var(--accent);font-weight:600;}
+
+/* Dokumentation und Auswertung */
+.doc-section{padding:30px 56px;border-bottom:1px solid var(--hair);}
+.doc-section:last-of-type{border-bottom:none;}
+.doc-section h2{font-size:19px;border-bottom:1px solid var(--rule);padding-bottom:7px;margin-bottom:14px;display:flex;align-items:baseline;gap:12px;}
+.doc-num{font-size:13px;font-family:"Source Sans 3",sans-serif;font-weight:600;color:var(--accent);letter-spacing:.04em;}
+.doc-section h3{font-size:15.5px;margin:20px 0 7px;font-family:"Source Sans 3",sans-serif;font-weight:700;color:var(--ink);}
+.doc-section p,.doc-section li{font-size:15.5px;max-width:80ch;color:var(--ink-2);}
+table{border-collapse:collapse;width:100%;margin:10px 0 16px;font-size:14.5px;}
+th,td{border-bottom:1px solid var(--hair);padding:8px 12px 8px 0;text-align:left;vertical-align:top;color:var(--ink-2);}
+thead th{border-bottom:1px solid var(--ink);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);font-weight:600;padding-bottom:6px;}
+tbody tr:last-child td{border-bottom:1px solid var(--rule);}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;padding-right:0;white-space:nowrap;}
+.remark{border-left:2px solid var(--accent);padding:2px 0 2px 16px;margin:14px 0;font-size:15px;color:var(--ink-2);max-width:78ch;}
+.remark b{color:var(--ink);}
+.small{font-size:13.5px;color:var(--grey);}
+
+/* Diagramme */
+.chart{border:1px solid var(--rule);padding:18px 20px 16px;margin:14px 0 8px;}
+.chart-title{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);border-bottom:1px solid var(--hair);padding-bottom:7px;margin-bottom:14px;}
+.chart-row{display:grid;grid-template-columns:190px 1fr 52px;align-items:center;gap:12px;margin-bottom:8px;font-size:14px;color:var(--ink-2);}
+.chart-track{background:var(--field);border-right:1px solid var(--hair);}
+.chart-bar{height:13px;background:var(--accent);}
+.chart-bar.low{background:#9AA6A0;}
+.chart-val{font-size:13.5px;font-variant-numeric:tabular-nums;text-align:right;color:var(--ink);font-weight:600;}
+.chart-note{font-size:12.5px;color:var(--grey);margin:12px 0 0;border-top:1px solid var(--hair);padding-top:9px;}
+
+/* Auswertung */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:16px 56px;border-bottom:1px solid var(--rule);background:var(--field);}
+.toolbar .sp{margin-left:auto;}
+select{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--ink-2);background:#fff;color:var(--ink);}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);}
+.kpi{padding:16px 20px 16px 0;border-right:1px solid var(--hair);}
+.kpi:last-child{border-right:none;}
+.kpi dt{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);margin-bottom:4px;}
+.kpi dd{margin:0;font-family:"Source Serif 4",serif;font-size:30px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1;}
+.kpi .unit{font-size:14px;color:var(--grey);font-family:"Source Sans 3",sans-serif;font-weight:400;margin-left:4px;}
+.empty{padding:40px 56px;color:var(--grey);font-size:15.5px;}
+.freetext{border-left:2px solid var(--hair);padding:6px 0 6px 14px;margin-bottom:10px;font-size:14.5px;color:var(--ink-2);}
+.freetext b{display:block;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);font-weight:600;margin-bottom:2px;}
+.hidden{display:none!important;}
+
+/* Responsiv */
+@media (max-width:760px){
+  .docbar-inner,.letterhead,.title-area,.preamble,.section,.closing,.status,.doc-section,.toolbar,.empty{padding-left:20px;padding-right:20px;}
+  .sheet{margin:10px;}
+  .q{grid-template-columns:26px 1fr;}
+  .q-kind{grid-column:2;text-align:left;border-left:none;padding-left:0;margin-top:9px;}
+  .scale-lab{display:none;}
+  .chart-row{grid-template-columns:120px 1fr 46px;}
+  .docbar-id{display:none;}
+  .navlink{padding:11px 11px 9px;font-size:13.5px;}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;}}
+
+/* Druck */
+@media print{
+  body{background:#fff;font-size:10.5pt;color:#000;}
+  .docbar,.status,.toolbar,.no-print{display:none!important;}
+  .sheet{max-width:none;margin:0;border:none;box-shadow:none;}
+  .letterhead,.title-area,.preamble,.section,.closing,.doc-section{padding-left:0;padding-right:0;}
+  .title-area h1{font-size:20pt;}
+  .notice,.closing{background:#fff;}
+  .closing{border-top:1.5pt solid #000;}
+  .q,.section,.doc-section,.chart,table{break-inside:avoid;}
+  .section-head{break-after:avoid;}
+  textarea{background:repeating-linear-gradient(transparent,transparent 21px,#bbb 21px,#bbb 22px);line-height:22px;min-height:66px;}
+  @page{margin:18mm 16mm;}
+}
+</style>
+</head>
+<body>
+
+<nav class="docbar no-print">
+  <div class="docbar-inner">
+    <div class="docbar-id">Lernfeld 12 · Automobilkaufmann · <b>BSZ „Erdmann Kircheis“, Oelsnitz</b></div>
+    <button class="navlink" role="tab" id="tab-fb" aria-selected="true" aria-controls="panel-fb">Fragebogen</button>
+    <button class="navlink" role="tab" id="tab-doku" aria-selected="false" aria-controls="panel-doku">Dokumentation</button>
+    <button class="navlink" role="tab" id="tab-aus" aria-selected="false" aria-controls="panel-aus">Auswertung</button>
+  </div>
+</nav>
+
+<main class="sheet">
+
+<!-- ══════════════ FRAGEBOGEN ══════════════ -->
+<section class="panel" id="panel-fb" role="tabpanel" aria-labelledby="tab-fb">
+
+  <header class="letterhead">
+    <div class="lh-top">
+      <div class="firm"><span class="ph">[Name des Autohauses]</span>
+        <span><span class="ph">[Straße und Hausnummer]</span> · <span class="ph">[PLZ und Ort]</span> · Vertrieb Neu- und Gebrauchtfahrzeuge</span></div>
+      <div class="formref">
+        Formular <b><span class="ph">[Nr.]</span></b><br>
+        Stand: <b><span class="ph">[Datum]</span></b><br>
+        Seite 1 von 4
+      </div>
+    </div>
+    <div class="rule-double"></div>
+  </header>
+
+  <div class="title-area">
+    <div class="kicker">Kundenbefragung zum Fahrzeugkauf</div>
+    <h1>Beratung, Preisgestaltung und Vertragsabwicklung</h1>
+    <p class="lead">Befragung aller Kundinnen und Kunden, die in den zurückliegenden zwölf Monaten ein Fahrzeug in unserem Haus erworben haben.</p>
+    <dl class="facts">
+      <div><dt>Erhebungsart</dt><dd>Schriftlich und online</dd></div>
+      <div><dt>Fragen</dt><dd>24</dd></div>
+      <div><dt>Bearbeitungsdauer</dt><dd>ca. 6 Minuten</dd></div>
+      <div><dt>Rücksendung bis</dt><dd><span class="ph">[Datum]</span></dd></div>
+    </dl>
+  </div>
+
+  <div class="preamble">
+    <h2>Sehr geehrte Kundin, sehr geehrter Kunde,</h2>
+    <p>vielen Dank, dass Sie sich für ein Fahrzeug aus unserem Haus entschieden haben. Wir möchten erfahren, wie Sie die Beratung, den Preis, Ihre Finanzierung und die Abwicklung des Kaufvertrags erlebt haben. Ihre Einschätzung fließt unmittelbar in die Schulung unserer Verkaufsberater und in die Gestaltung unserer Angebote ein.</p>
+    <p>Es gibt keine richtigen oder falschen Antworten. Uns interessiert allein Ihre persönliche Erfahrung – auch und gerade dann, wenn etwas nicht zu Ihrer Zufriedenheit verlaufen ist.</p>
+    <div class="notice">
+      <b>Hinweis zum Datenschutz.</b> Die Teilnahme ist freiwillig; aus einer Nichtteilnahme entstehen Ihnen keine Nachteile. Der Fragebogen wird anonym ausgewertet, eine Zuordnung zu einzelnen Personen oder Kaufverträgen ist nicht möglich und nicht vorgesehen. Bitte tragen Sie keinen Namen und keine Vertragsnummer ein. Die Angaben werden ausschließlich zusammengefasst ausgewertet und nach Abschluss der Auswertung gelöscht.
+      <div class="notice-row">
+        <span>Verantwortlich: <span class="ph">[Name des Autohauses]</span>, Geschäftsleitung</span>
+        <span>Rückfragen: <span class="ph">[Telefonnummer]</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="fb-body"></div>
+
+  <div class="closing">
+    <h2>Vielen Dank für Ihre Zeit.</h2>
+    <p>Ihre Rückmeldung wird im Verkaufsteam ausgewertet und besprochen. Eine Zusammenfassung der Ergebnisse und der daraus abgeleiteten Maßnahmen veröffentlichen wir auf unserer Internetseite.</p>
+    <dl class="return">
+      <div><dt>Rücksendung per Post</dt><dd><span class="ph">[Name des Autohauses]</span><br>Stichwort Kundenbefragung<br><span class="ph">[Anschrift]</span></dd></div>
+      <div><dt>Persönliche Abgabe</dt><dd>Rückgabebox im Kundenempfang<br><span class="ph">[Öffnungszeiten]</span></dd></div>
+      <div><dt>Online ausfüllen</dt><dd><span class="ph">[Internetadresse]</span><br>Zugangscode <span class="ph">[Code]</span></dd></div>
+      <div><dt>Rückfragen</dt><dd><span class="ph">[Telefonnummer]</span><br><span class="ph">[E-Mail-Adresse]</span></dd></div>
+    </dl>
+    <div class="signature">
+      <div class="sigline"></div>
+      <span class="ph">[Name]</span>, Geschäftsführung
+    </div>
+  </div>
+
+  <div class="status no-print">
+    <span id="count">0 von 24 Fragen beantwortet</span>
+    <span class="bar"><i id="fill"></i></span>
+    <span class="toast" id="toast"></span>
+    <button class="btn" id="reset">Eingaben löschen</button>
+    <button class="btn" id="print">Drucken / PDF</button>
+    <button class="btn btn-primary" id="submit">Bogen erfassen</button>
+  </div>
+</section>
+
+<!-- ══════════════ DOKUMENTATION ══════════════ -->
+<section class="panel" id="panel-doku" role="tabpanel" aria-labelledby="tab-doku" hidden>
+
+  <header class="letterhead">
+    <div class="lh-top">
+      <div class="firm">Dokumentation der Arbeitsabläufe<span>Lernfeld 12 · Automobilkaufmann · Fachlehrerin Löffler</span></div>
+      <div class="formref">Anlage zum Fragebogen<br>Abgabe: <b>24.08.2026</b><br>BSZ „Erdmann Kircheis“</div>
+    </div>
+    <div class="rule-double"></div>
+  </header>
+
+  <div class="title-area">
+    <div class="kicker">Begleitunterlage zum Fragebogen</div>
+    <h1>Kundenbefragung zum Kaufprozess</h1>
+    <p class="lead">Ziel, Methodik, Durchführung und Auswertung der Befragung für ein Autohaus mit Neu- und Gebrauchtwagenvertrieb.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2><span class="doc-num">1</span>Zielformulierung der Befragung</h2>
+    <p><strong>Oberziel:</strong> Wir möchten herausfinden, wie zufrieden unsere Käuferinnen und Käufer mit Beratung, Preisgestaltung, Finanzierung und Vertragsabwicklung sind und an welchen Stellen des Kaufprozesses die größten Schwachstellen liegen.</p>
+    <h3>Teilziele</h3>
+    <ul>
+      <li>Zufriedenheit je Prozessschritt messbar machen (Mittelwert je Themenblock)</li>
+      <li>prüfen, ob Preise und Finanzierungskonditionen für Kunden nachvollziehbar dargestellt werden</li>
+      <li>Weiterempfehlungsbereitschaft als vergleichbare Kennzahl erheben (Frage 23)</li>
+      <li>Unterschiede zwischen Kundengruppen sichtbar machen, etwa zwischen Neuwagen- und Gebrauchtwagenkäufern</li>
+      <li>konkrete Verbesserungsvorschläge in den Worten der Kunden sammeln (Fragen 10 und 24)</li>
+    </ul>
+    <p class="remark"><b>Nutzen für das Unternehmen:</b> Aus den Ergebnissen leiten wir Schulungsbedarf im Verkauf, Anpassungen bei der Preistransparenz und Verbesserungen im Übergabeprozess ab.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2><span class="doc-num">2</span>Untersuchungsart</h2>
+    <p>Gewählt wurde eine <strong>schriftliche Befragung in zwei Varianten</strong>: als gedruckter Fragebogen, der bei der Fahrzeugübergabe ausgehändigt oder postalisch versendet wird, und als inhaltlich identische Onlineversion, erreichbar über einen QR-Code auf dem Anschreiben.</p>
+    <table>
+      <thead><tr><th>Erhebungsart</th><th>Vorteile</th><th>Nachteile</th><th>Entscheidung</th></tr></thead>
+      <tbody>
+        <tr><td>Schriftlich, Papier</td><td>erreicht auch ältere Kunden, kein Zeitdruck, anonym</td><td>Portokosten, manuelle Erfassung</td><td>gewählt</td></tr>
+        <tr><td>Online</td><td>geringe Kosten, automatische Auswertung, schneller Rücklauf</td><td>E-Mail-Adresse erforderlich, geringere Beteiligung älterer Kunden</td><td>gewählt, als Parallelversion</td></tr>
+        <tr><td>Telefonisch</td><td>hohe Rücklaufquote, Rückfragen möglich</td><td>personalintensiv, teuer, wird als Störung empfunden</td><td>verworfen</td></tr>
+        <tr><td>Persönlich im Autohaus</td><td>unmittelbare Reaktion</td><td>keine Anonymität, beschönigte Antworten</td><td>verworfen</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-section">
+    <h2><span class="doc-num">3</span>Zielgruppe und Umfang der Befragung</h2>
+    <p><strong>Zielgruppe:</strong> alle Privat- und Gewerbekunden des Autohauses, die im zurückliegenden Geschäftsjahr ein Neu-, Vorführ- oder Gebrauchtfahrzeug gekauft haben. Reine Servicekunden ohne Fahrzeugkauf werden nicht befragt.</p>
+    <table>
+      <tbody>
+        <tr><td style="width:220px">Grundgesamtheit</td><td>rund 640 Kaufverträge im Erhebungszeitraum</td></tr>
+        <tr><td>Umfang</td><td>Vollerhebung, alle Käufer werden angeschrieben</td></tr>
+        <tr><td>Erwarteter Rücklauf</td><td>20 bis 25 Prozent, also etwa 130 bis 160 auswertbare Bögen</td></tr>
+        <tr><td>Erhebungszeitraum</td><td>vier Wochen</td></tr>
+      </tbody>
+    </table>
+    <p>Die Vollerhebung wurde einer Stichprobe vorgezogen, weil die Grundgesamtheit klein ist und die Adressdaten im Kundenverwaltungssystem bereits vorliegen. Ein Auswahlfehler entfällt dadurch vollständig.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2><span class="doc-num">4</span>Gestaltung des Fragebogens und Begründung</h2>
+    <h3>Aufbau</h3>
+    <p>Der Bogen folgt dem <strong>Trichterprinzip</strong>: leichte Einstiegsfragen, anschließend die inhaltlichen Themenblöcke entlang des tatsächlichen Kaufprozesses, zum Schluss das Gesamturteil und die offene Verbesserungsfrage.</p>
+    <table>
+      <thead><tr><th>Teil</th><th>Inhalt</th><th>Fragen</th><th>Begründung</th></tr></thead>
+      <tbody>
+        <tr><td>Einleitung</td><td>Ziel, Datenschutz, Bearbeitungsdauer</td><td>–</td><td>schafft Vertrauen und erhöht den Rücklauf</td></tr>
+        <tr><td>A</td><td>Angaben zum Fahrzeugkauf</td><td>1 – 4</td><td>einfacher Einstieg, liefert die Merkmale für den späteren Gruppenvergleich</td></tr>
+        <tr><td>B</td><td>Beratung im Verkauf</td><td>5 – 10</td><td>erster Kontaktpunkt im Kaufprozess</td></tr>
+        <tr><td>C</td><td>Preisgestaltung</td><td>11 – 14</td><td>Kernthema der Aufgabenstellung</td></tr>
+        <tr><td>D</td><td>Finanzierung und Leasing</td><td>15 – 18</td><td>Filterfrage, da für Barzahler nicht relevant</td></tr>
+        <tr><td>E</td><td>Vertragsabwicklung und Übergabe</td><td>19 – 21</td><td>letzter Prozessschritt vor der Fahrzeugnutzung</td></tr>
+        <tr><td>F</td><td>Gesamteindruck</td><td>22 – 24</td><td>Gesamturteil bewusst nach den Einzelbewertungen</td></tr>
+        <tr><td>Abschluss</td><td>Dank, Rücksendewege, Kontakt</td><td>–</td><td>klärt, was mit den Angaben geschieht</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Verwendete Fragearten (gefordert: mindestens drei)</h3>
+    <table>
+      <thead><tr><th>Frageart</th><th>Fragen</th><th>Begründung der Verwendung</th></tr></thead>
+      <tbody>
+        <tr><td>Geschlossene Fragen</td><td>1, 2, 4, 7, 13, 14, 18, 20</td><td>schnell zu beantworten, eindeutig auszählbar</td></tr>
+        <tr><td>Skalenfragen 1 – 5</td><td>5, 6, 8, 11, 12, 16, 17, 19, 21, 22</td><td>messen die Intensität der Zufriedenheit, Mittelwerte vergleichbar</td></tr>
+        <tr><td>Skalenfrage 0 – 10</td><td>23</td><td>Weiterempfehlung als Kennzahl im Jahresvergleich</td></tr>
+        <tr><td>Alternativfragen</td><td>3, 9</td><td>klare Zuordnung ohne Zwischentöne</td></tr>
+        <tr><td>Kontrollfrage</td><td>13</td><td>überprüft die Selbsteinschätzung aus Frage 12</td></tr>
+        <tr><td>Filterfrage</td><td>15</td><td>überspringt Abschnitt D für Barzahler</td></tr>
+        <tr><td>Offene Fragen</td><td>10, 24</td><td>liefern Gründe und Ideen, die sich nicht vorgeben lassen</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Umgesetzte Gestaltungsregeln</h3>
+    <ul>
+      <li>Bearbeitungsdauer wird in der Einleitung angegeben (etwa 6 Minuten)</li>
+      <li>deutlich mehr geschlossene als offene Fragen (22 zu 2)</li>
+      <li>einheitliche Schriftart, einheitliche Skalenrichtung: links negativ, rechts positiv</li>
+      <li>alle Zufriedenheitsfragen verwenden dieselbe fünfstufige Skala, damit die Werte vergleichbar bleiben</li>
+      <li>Fragen optisch hervorgehoben, Erläuterungen kleiner und zurückgenommen</li>
+      <li>Zwischenüberschriften A bis F kennzeichnen die Themenblöcke</li>
+      <li>neutrale, kurze Formulierungen ohne Fachjargon, Schachtelsätze und Doppelfragen</li>
+      <li>keine personenbezogenen Daten, keine indiskreten Fragen nach Einkommen oder Kaufpreis</li>
+    </ul>
+    <p class="remark"><b>Bewusste Entscheidung gegen eine Formulierung:</b> Die Frage „Fühlten Sie sich zu Zusatzprodukten gedrängt?“ wäre suggestiv und hätte eine bestimmte Antwort provoziert. Frage 18 fragt stattdessen neutral nach ausreichender Bedenkzeit.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2><span class="doc-num">5</span>Vorschlag zur Durchführung der Befragung</h2>
+    <h3>Ablauf</h3>
+    <ol>
+      <li><strong>Vorbereitung, Woche 1 – 2:</strong> Adressen aus dem Kundenverwaltungssystem ziehen, Anschreiben und Fragebogen drucken, Onlineversion einrichten.</li>
+      <li><strong>Pretest, Woche 3:</strong> zehn Bögen an Mitarbeitende und fünf Stammkunden, anschließend Formulierungen überarbeiten.</li>
+      <li><strong>Versand, Woche 4:</strong> Postversand mit frankiertem Rückumschlag, parallel E-Mail mit Link an alle Kunden mit hinterlegter Adresse.</li>
+      <li><strong>Erinnerung, nach zwei Wochen:</strong> freundliches Erinnerungsschreiben an noch nicht eingegangene Rückläufe.</li>
+      <li><strong>Abschluss:</strong> Erfassung und Auswertung, Vorstellung der Ergebnisse im Verkaufsteam.</li>
+    </ol>
+
+    <h3>Besonderheiten</h3>
+    <ul>
+      <li>frankierter Rückumschlag liegt bei, das erhöht den Rücklauf spürbar</li>
+      <li>Rückgabebox im Kundenempfang für Kunden, die ohnehin zum Service kommen</li>
+      <li>Verlosung von drei Fahrzeugaufbereitungen als Anreiz; die Teilnahme erfolgt über eine getrennte Karte, damit die Anonymität gewahrt bleibt</li>
+    </ul>
+
+    <h3>Mögliche Probleme und Lösungen</h3>
+    <table>
+      <thead><tr><th>Mögliches Problem</th><th>Lösung</th></tr></thead>
+      <tbody>
+        <tr><td>zu geringer Rücklauf</td><td>Rückumschlag beilegen, nach zwei Wochen erinnern, Gewinnanreiz setzen</td></tr>
+        <tr><td>nur die vorderen Seiten werden ausgefüllt</td><td>Bogen kurz halten, wichtige Fragen nicht ans Ende stellen</td></tr>
+        <tr><td>Barzahler beantworten Finanzierungsfragen unpassend</td><td>Filterfrage 15 mit deutlichem Verweis auf Frage 19</td></tr>
+        <tr><td>Antworten fallen aus Höflichkeit zu positiv aus</td><td>Anonymität hervorheben, Bogen nicht durch den Verkäufer aushändigen lassen</td></tr>
+        <tr><td>unleserliche Freitextantworten</td><td>ausreichend Schreiblinien, Onlineversion als Alternative</td></tr>
+        <tr><td>datenschutzrechtliche Bedenken</td><td>keine Namen und Vertragsnummern auf dem Bogen, Hinweis in der Einleitung</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Kostenschätzung</h3>
+    <table>
+      <thead><tr><th>Position</th><th>Berechnung</th><th class="num">Betrag</th></tr></thead>
+      <tbody>
+        <tr><td>Druck der Fragebögen</td><td>640 × 4 Seiten × 0,08 €</td><td class="num">204,80 €</td></tr>
+        <tr><td>Anschreiben und Umschläge</td><td>640 × 0,15 €</td><td class="num">96,00 €</td></tr>
+        <tr><td>Porto Versand</td><td>640 × 0,95 €</td><td class="num">608,00 €</td></tr>
+        <tr><td>Porto Rückumschläge</td><td>160 Rückläufe × 0,95 €</td><td class="num">152,00 €</td></tr>
+        <tr><td>Onlineumfrage-Lizenz</td><td>2 Monate</td><td class="num">60,00 €</td></tr>
+        <tr><td>Gewinne, drei Aufbereitungen</td><td>3 × 90,00 €</td><td class="num">270,00 €</td></tr>
+        <tr><td>Arbeitszeit für die Erfassung</td><td>12 Std. × 22,00 €</td><td class="num">264,00 €</td></tr>
+        <tr><td><strong>Gesamtkosten</strong></td><td></td><td class="num"><strong>1.654,80 €</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-section">
+    <h2><span class="doc-num">6</span>Vorschlag zur Auswertung</h2>
+    <h3>Erfassung</h3>
+    <p>Die Onlineantworten laufen automatisch in eine Tabelle. Die Papierbögen werden fortlaufend nummeriert und über die Erfassungsmaske im Reiter <strong>Fragebogen</strong> eingegeben; jede Frage bildet eine Spalte, jeder Bogen eine Zeile. Zehn Prozent der Bögen werden gegengelesen, um Eingabefehler aufzudecken. Der gesamte Datensatz lässt sich als CSV-Datei für Excel exportieren und später wieder einlesen.</p>
+
+    <h3>Analyse</h3>
+    <ul>
+      <li>geschlossene Fragen: absolute und prozentuale Häufigkeiten</li>
+      <li>Skalenfragen: Mittelwert und Verteilung je Frage sowie je Themenblock</li>
+      <li>Frage 23: Auswertung als Weiterempfehlungswert, Anteil der Werte 9 – 10 abzüglich Anteil der Werte 0 – 6</li>
+      <li>Kreuzauswertung: Zufriedenheit nach Fahrzeugart, Zahlungsart und Kundenstatus</li>
+      <li>offene Fragen: Antworten in Kategorien zusammenfassen, etwa Wartezeit, Preistransparenz, Erreichbarkeit, und auszählen</li>
+    </ul>
+
+    <h3>Visualisierung</h3>
+    <p>Balkendiagramme für die Mittelwerte je Themenblock, Häufigkeitsbalken für die geschlossenen Fragen und eine Vergleichstabelle für die Kundengruppen. Der Reiter <strong>Auswertung</strong> erzeugt diese Darstellungen unmittelbar aus den erfassten Bögen.</p>
+
+    <h3>Interpretation und Konsequenz</h3>
+    <p>Themenblöcke mit einem Mittelwert unter 3,5 gelten als Handlungsfeld. Weicht eine Kundengruppe um mehr als 0,5 Punkte vom Gesamtmittel ab, wird der betreffende Prozessschritt gesondert geprüft. Die Befragung wird nach zwölf Monaten wiederholt, um die Wirkung der Maßnahmen zu überprüfen.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2><span class="doc-num">7</span>Arbeitsaufteilung</h2>
+    <table>
+      <thead><tr><th>Aufgabe</th><th>Bearbeitung</th><th class="num">Aufwand</th></tr></thead>
+      <tbody>
+        <tr><td>Themenwahl, Zielformulierung, Zielgruppe</td><td>gemeinsam</td><td class="num">1,0 Std.</td></tr>
+        <tr><td>Fragen der Abschnitte A und B</td><td>Luca</td><td class="num">1,5 Std.</td></tr>
+        <tr><td>Fragen der Abschnitte C und D</td><td>[Name 2]</td><td class="num">1,5 Std.</td></tr>
+        <tr><td>Fragen der Abschnitte E und F, Einleitung, Abschluss</td><td>[Name 3]</td><td class="num">1,5 Std.</td></tr>
+        <tr><td>Digitale Umsetzung, Layout und Druckfassung</td><td>Luca</td><td class="num">2,5 Std.</td></tr>
+        <tr><td>Durchführung, Kosten, Probleme und Lösungen</td><td>[Name 2]</td><td class="num">1,0 Std.</td></tr>
+        <tr><td>Auswertungskonzept, Kennzahlen und Diagramme</td><td>[Name 3]</td><td class="num">1,5 Std.</td></tr>
+        <tr><td>Endkorrektur, Pretest, Quellenangaben</td><td>gemeinsam</td><td class="num">1,0 Std.</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Die Platzhalter [Name 2] und [Name 3] sind vor der Abgabe durch die Namen der Gruppenmitglieder zu ersetzen.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2><span class="doc-num">8</span>Quellenangaben</h2>
+    <ul>
+      <li>Löffler: Infos Erstellung Fragebogen, LF12 / AUK, BSZ „Erdmann Kircheis“ Oelsnitz, Unterrichtsmaterial 2026 – Fragearten, Formulierungsregeln, Design und Layout</li>
+      <li>Aufgabenstellung „Erstellung eines Fragebogens“, BSZ „Erdmann Kircheis“ Oelsnitz</li>
+      <li>eigene Unterrichtsmitschriften LF12, Themenbereich Marktforschung und Kundenbefragung</li>
+      <li>eigene Erfahrungen aus dem Ausbildungsbetrieb zum Ablauf von Verkaufsgespräch, Finanzierung und Fahrzeugübergabe</li>
+    </ul>
+    <h3>Eingesetzte KI-Unterstützung</h3>
+    <p>Werkzeug: Claude (Anthropic), Abruf am 24.08.2026.</p>
+    <p class="remark">Verwendeter Prompt: „Erstelle auf Grundlage der Unterrichtsmaterialien zu LF12 einen Fragebogen zum Thema Kaufprozess: Beratung und Preisgestaltung mit mindestens 15 Fragen und mindestens drei Fragearten, dazu die geforderte Dokumentation sowie eine Auswertung mit Statistik und Gruppenvergleich, und setze alles als strukturierte Website um.“</p>
+    <p class="small">Die Vorschläge wurden von der Gruppe fachlich geprüft, inhaltlich angepasst und um eigene Beispiele aus dem Ausbildungsbetrieb ergänzt.</p>
+  </div>
+
+  <div class="doc-section no-print">
+    <button class="btn btn-primary" id="print2">Dokumentation drucken oder als PDF speichern</button>
+  </div>
+</section>
+
+<!-- ══════════════ AUSWERTUNG ══════════════ -->
+<section class="panel" id="panel-aus" role="tabpanel" aria-labelledby="tab-aus" hidden>
+
+  <header class="letterhead">
+    <div class="lh-top">
+      <div class="firm">Auswertung der Kundenbefragung<span>Statistik, Kennzahlen und Vergleich der Kundengruppen</span></div>
+      <div class="formref">Datenstand<br><b><span id="stand">–</span></b></div>
+    </div>
+    <div class="rule-double"></div>
+  </header>
+
+  <div class="toolbar no-print">
+    <button class="btn" id="demo">Beispieldaten laden</button>
+    <button class="btn" id="export">Als CSV exportieren</button>
+    <label class="btn" for="import" style="display:inline-block">CSV einlesen<input type="file" id="import" accept=".csv,text/csv" class="hidden"></label>
+    <button class="btn sp" id="clear">Alle Daten löschen</button>
+    <button class="btn btn-primary" id="print3">Auswertung drucken</button>
+  </div>
+
+  <div id="aus-body"></div>
+</section>
+
+</main>
+
+<script>
+/* ============================================================
+   1 · Fragebogen-Definition
+   ============================================================ */
+var SKALA5 = function(a,b,c,d,e){return [{v:1,l:a},{v:2,l:b},{v:3,l:c},{v:4,l:d},{v:5,l:e}];};
+var ZUFR   = SKALA5('sehr unzufrieden','unzufrieden','teils/teils','zufrieden','sehr zufrieden');
+
+var SECTIONS = [
+{id:'A',title:'A · Angaben zu Ihrem Fahrzeugkauf',range:'Fragen 1 – 4',
+ note:'Diese Angaben helfen uns, Ihre Antworten richtig einzuordnen. Bitte kreuzen Sie jeweils Zutreffendes an.',
+ qs:[
+  {n:1,k:'q01',type:'single',kind:'geschlossen<br>Alternativfrage',text:'Welche Fahrzeugart haben Sie gekauft?',
+   opts:['Neuwagen','Jahres- oder Vorführwagen','Gebrauchtwagen']},
+  {n:2,k:'q02',type:'single',kind:'geschlossen',text:'Wann haben Sie Ihr Fahrzeug übernommen?',
+   opts:['vor weniger als einem Monat','vor 1 bis 3 Monaten','vor 4 bis 6 Monaten','vor mehr als 6 Monaten']},
+  {n:3,k:'q03',type:'single',kind:'Alternativfrage',text:'War dies Ihr erster Fahrzeugkauf in unserem Haus?',
+   opts:['Ja, mein erster Kauf','Nein, ich kaufe hier wiederholt']},
+  {n:4,k:'q04',type:'multi',kind:'geschlossen<br>Mehrfachauswahl',text:'Wie sind Sie auf unser Autohaus aufmerksam geworden?',
+   hint:'Mehrfachnennung möglich.',
+   opts:['Empfehlung aus Familie oder Bekanntenkreis','Internetsuche oder Fahrzeugbörse','Werbung in Zeitung, Radio oder sozialen Medien','Vorbeifahrt am Standort','Ich war bereits Servicekunde']}
+ ]},
+{id:'B',title:'B · Beratung im Verkauf',range:'Fragen 5 – 10',
+ note:'Bitte denken Sie an das Verkaufsgespräch vor dem Vertragsabschluss.',
+ qs:[
+  {n:5,k:'q05',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden waren Sie mit Erreichbarkeit und Terminvergabe?',opts:ZUFR,short:'Erreichbarkeit und Terminvergabe'},
+  {n:6,k:'q06',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie beurteilen Sie die Fachkompetenz Ihres Verkaufsberaters?',
+   opts:SKALA5('sehr gering','gering','mittel','hoch','sehr hoch'),short:'Fachkompetenz des Beraters'},
+  {n:7,k:'q07',type:'single',kind:'geschlossen<br>Zustimmungsfrage',text:'„Der Berater ist auf meine persönlichen Wünsche eingegangen.“',
+   opts:['trifft voll zu','trifft eher zu','trifft eher nicht zu','trifft nicht zu']},
+  {n:8,k:'q08',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie verständlich wurden Ihnen Ausstattung und Technik erklärt?',
+   opts:SKALA5('gar nicht verständlich','wenig','teils/teils','gut','sehr gut'),short:'Erklärung von Ausstattung und Technik'},
+  {n:9,k:'q09',type:'single',kind:'Alternativfrage',text:'Wie haben Sie die Dauer des Beratungsgesprächs empfunden?',
+   opts:['zu kurz','genau richtig','zu lang']},
+  {n:10,k:'q10',type:'open',kind:'offene Frage',text:'Was hat Ihnen an der Beratung besonders gut gefallen?'}
+ ]},
+{id:'C',title:'C · Preisgestaltung',range:'Fragen 11 – 14',
+ note:'Gemeint sind Fahrzeugpreis, Nachlässe, Zubehör sowie Nebenkosten wie Überführung und Zulassung.',
+ qs:[
+  {n:11,k:'q11',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie bewerten Sie das Preis-Leistungs-Verhältnis Ihres Fahrzeugs?',
+   opts:SKALA5('sehr schlecht','schlecht','teils/teils','gut','sehr gut'),short:'Preis-Leistungs-Verhältnis'},
+  {n:12,k:'q12',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie transparent war für Sie die Preisdarstellung im Angebot?',
+   opts:SKALA5('gar nicht transparent','wenig','teils/teils','transparent','sehr transparent'),short:'Transparenz der Preisdarstellung'},
+  {n:13,k:'q13',type:'single',kind:'Kontrollfrage<br>zu Frage 12',text:'Wurde Ihnen der Gesamtpreis vor der Unterschrift vollständig aufgeschlüsselt?',
+   opts:['ja, vollständig','teilweise','nein','weiß ich nicht mehr']},
+  {n:14,k:'q14',type:'multi',kind:'geschlossen<br>Mehrfachauswahl',text:'Was war Ihnen beim Preis am wichtigsten?',hint:'Bitte höchstens zwei Angaben ankreuzen.',
+   opts:['niedriger Endpreis','hoher Preis für mein Altfahrzeug','günstige monatliche Rate','enthaltene Zusatzleistungen','nachvollziehbare Aufstellung']}
+ ]},
+{id:'D',title:'D · Finanzierung und Leasing',range:'Fragen 15 – 18',
+ note:'Frage 15 ist eine Filterfrage. Wenn Sie bar bezahlt haben, fahren Sie bitte direkt mit Frage 19 fort.',
+ qs:[
+  {n:15,k:'q15',type:'single',kind:'Filterfrage',text:'Wie haben Sie Ihr Fahrzeug bezahlt?',
+   opts:['Barzahlung','Finanzierung','Leasing','Anzahlung mit anschließender Rate'],arrow:{0:'→ weiter bei Frage 19'}},
+  {n:16,k:'q16',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie verständlich wurden Ihnen die Konditionen erklärt?',
+   hint:'Rate, Laufzeit, Anzahlung, Schlussrate, effektiver Jahreszins.',
+   opts:SKALA5('gar nicht verständlich','wenig','teils/teils','gut','sehr gut'),short:'Verständlichkeit der Konditionen'},
+  {n:17,k:'q17',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden waren Sie mit der Auswahl der angebotenen Varianten?',opts:ZUFR,short:'Auswahl der Finanzierungsvarianten'},
+  {n:18,k:'q18',type:'single',kind:'geschlossen<br>Zustimmungsfrage',text:'„Bei Zusatzprodukten wie Garantieverlängerung oder Versicherung hatte ich ausreichend Bedenkzeit.“',
+   opts:['trifft voll zu','trifft eher zu','trifft eher nicht zu','trifft nicht zu','wurde mir nicht angeboten']}
+ ]},
+{id:'E',title:'E · Vertragsabwicklung und Übergabe',range:'Fragen 19 – 21',
+ note:'Vom Vertragsabschluss bis zur Schlüsselübergabe.',
+ qs:[
+  {n:19,k:'q19',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden waren Sie mit der Dauer bis zur Fahrzeugübergabe?',opts:ZUFR,short:'Dauer bis zur Übergabe'},
+  {n:20,k:'q20',type:'single',kind:'geschlossen',text:'Waren alle Unterlagen bei der Übergabe vollständig?',
+   hint:'Kaufvertrag, Zulassungsbescheinigung, Serviceheft, Bedienungsanleitung.',
+   opts:['ja, vollständig','teilweise','nein']},
+  {n:21,k:'q21',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden waren Sie mit der Fahrzeugübergabe insgesamt?',
+   hint:'Einweisung, Zustand des Fahrzeugs, Zeit für Ihre Fragen.',opts:ZUFR,short:'Fahrzeugübergabe insgesamt'}
+ ]},
+{id:'F',title:'F · Gesamteindruck',range:'Fragen 22 – 24',
+ note:'Zum Abschluss bitten wir Sie um Ihr Gesamturteil.',
+ qs:[
+  {n:22,k:'q22',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden sind Sie mit dem gesamten Kaufprozess?',opts:ZUFR,short:'Gesamtzufriedenheit'},
+  {n:23,k:'q23',type:'scale11',kind:'Skalenfrage<br>0 bis 10',text:'Wie wahrscheinlich ist es, dass Sie unser Autohaus weiterempfehlen?',
+   ends:['0 = sehr unwahrscheinlich','10 = sehr wahrscheinlich'],short:'Weiterempfehlung'},
+  {n:24,k:'q24',type:'open',kind:'offene Frage',text:'Was sollten wir bei Ihrem nächsten Fahrzeugkauf besser machen?'}
+ ]}
+];
+
+var BLOCKS = [
+  {name:'Beratung',keys:['q05','q06','q08']},
+  {name:'Preisgestaltung',keys:['q11','q12']},
+  {name:'Finanzierung',keys:['q16','q17']},
+  {name:'Vertragsabwicklung',keys:['q19','q21']},
+  {name:'Gesamturteil',keys:['q22']}
+];
+var GROUPS = [
+  {key:'q01',label:'Fahrzeugart'},
+  {key:'q15',label:'Zahlungsart'},
+  {key:'q03',label:'Kundenstatus'},
+  {key:'q02',label:'Zeitpunkt der Übernahme'}
+];
+
+var ALL_Q = [];
+SECTIONS.forEach(function(s){s.qs.forEach(function(q){q.section=s.id;ALL_Q.push(q);});});
+function qByKey(k){for(var i=0;i<ALL_Q.length;i++){if(ALL_Q[i].k===k)return ALL_Q[i];}return null;}
+
+/* ============================================================
+   2 · Fragebogen aufbauen
+   ============================================================ */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function renderFragebogen(){
+  var html='';
+  SECTIONS.forEach(function(s){
+    html+='<div class="section"><div class="section-head"><h2>'+s.title+'</h2><span class="of">'+s.range+'</span></div>';
+    if(s.note) html+='<p class="section-note">'+s.note+'</p>';
+    s.qs.forEach(function(q){
+      html+='<div class="q"><div class="q-num">'+q.n+'</div><div>';
+      html+='<div class="q-text">'+q.text+(q.hint?'<span class="q-hint">'+q.hint+'</span>':'')+'</div>';
+      if(q.type==='single'||q.type==='multi'){
+        var t=q.type==='single'?'radio':'checkbox';
+        html+='<div class="opts">';
+        q.opts.forEach(function(o,i){
+          var extra=(q.arrow&&q.arrow[i])?' <span class="arrow">'+q.arrow[i]+'</span>':'';
+          html+='<label class="opt"><input type="'+t+'" name="'+q.k+'" value="'+esc(o)+'">'+esc(o)+extra+'</label>';
+        });
+        html+='</div>';
+      } else if(q.type==='scale'){
+        html+='<div class="scale">';
+        q.opts.forEach(function(o){
+          html+='<label class="scale-item"><input type="radio" name="'+q.k+'" value="'+o.v+'">'+
+                '<span class="scale-num">'+o.v+'</span><span class="scale-lab">'+o.l+'</span></label>';
+        });
+        html+='</div>';
+      } else if(q.type==='scale11'){
+        html+='<div class="scale wide">';
+        for(var v=0;v<=10;v++){
+          html+='<label class="scale-item"><input type="radio" name="'+q.k+'" value="'+v+'"><span class="scale-num">'+v+'</span></label>';
+        }
+        html+='</div><div class="scale-ends"><span>'+q.ends[0]+'</span><span>'+q.ends[1]+'</span></div>';
+      } else {
+        html+='<div class="lines"><textarea rows="3" name="'+q.k+'" aria-label="Antwort zu Frage '+q.n+'"></textarea></div>';
+      }
+      html+='</div><div class="q-kind">'+q.kind+'</div></div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById('fb-body').innerHTML=html;
+}
+
+/* ============================================================
+   3 · Datenhaltung
+   ============================================================ */
+var DATA=[];
+var form=document.getElementById('panel-fb');
+
+function collect(){
+  var rec={};
+  ALL_Q.forEach(function(q){
+    if(q.type==='multi'){
+      var vals=[];
+      form.querySelectorAll('input[name="'+q.k+'"]:checked').forEach(function(i){vals.push(i.value);});
+      if(vals.length) rec[q.k]=vals;
+    } else if(q.type==='open'){
+      var t=form.querySelector('textarea[name="'+q.k+'"]');
+      if(t&&t.value.trim()) rec[q.k]=t.value.trim();
+    } else {
+      var c=form.querySelector('input[name="'+q.k+'"]:checked');
+      if(c) rec[q.k]=(q.type==='scale'||q.type==='scale11')?Number(c.value):c.value;
+    }
+  });
+  return rec;
+}
+function countAnswered(rec){var n=0;ALL_Q.forEach(function(q){if(rec[q.k]!==undefined)n++;});return n;}
+function clearForm(){
+  form.querySelectorAll('input').forEach(function(i){i.checked=false;});
+  form.querySelectorAll('textarea').forEach(function(t){t.value='';});
+}
+
+/* Statusleiste */
+var countEl=document.getElementById('count'), fillEl=document.getElementById('fill'), toastEl=document.getElementById('toast');
+function updateStatus(){
+  var n=countAnswered(collect());
+  countEl.textContent=n+' von 24 Fragen beantwortet';
+  fillEl.style.width=(n/24*100)+'%';
+}
+function toast(msg){
+  toastEl.textContent=msg;
+  setTimeout(function(){if(toastEl.textContent===msg)toastEl.textContent='';},3500);
+}
+
+/* ============================================================
+   4 · Statistik
+   ============================================================ */
+function mean(arr){if(!arr.length)return null;var s=0;arr.forEach(function(v){s+=v;});return s/arr.length;}
+function fmt(v,d){return v===null?'–':v.toFixed(d===undefined?2:d).replace('.',',');}
+function valuesOf(key,rows){
+  var out=[];(rows||DATA).forEach(function(r){if(typeof r[key]==='number')out.push(r[key]);});return out;
+}
+function blockMean(block,rows){
+  var all=[];block.keys.forEach(function(k){all=all.concat(valuesOf(k,rows));});return mean(all);
+}
+function nps(rows){
+  var v=valuesOf('q23',rows);
+  if(!v.length)return null;
+  var pro=0,det=0;
+  v.forEach(function(x){if(x>=9)pro++;else if(x<=6)det++;});
+  return {wert:Math.round((pro-det)/v.length*100),pro:pro,pas:v.length-pro-det,det:det,n:v.length};
+}
+function freq(q,rows){
+  rows=rows||DATA;
+  var map={},total=0;
+  q.opts.forEach(function(o){map[typeof o==='object'?o.l:o]=0;});
+  rows.forEach(function(r){
+    var val=r[q.k];
+    if(val===undefined)return;
+    if(Array.isArray(val)){val.forEach(function(x){if(map[x]===undefined)map[x]=0;map[x]++;});total++;}
+    else{
+      var lab=(q.type==='scale')?labelOf(q,val):val;
+      if(map[lab]===undefined)map[lab]=0;map[lab]++;total++;
+    }
+  });
+  return {map:map,total:total};
+}
+function labelOf(q,v){for(var i=0;i<q.opts.length;i++){if(q.opts[i].v===v)return q.opts[i].l;}return String(v);}
+
+function bar(label,value,max,cls,valText){
+  var pct=max?Math.max(0,Math.min(100,value/max*100)):0;
+  return '<div class="chart-row"><span>'+label+'</span>'+
+         '<span class="chart-track"><span class="chart-bar'+(cls?' '+cls:'')+'" style="width:'+pct.toFixed(1)+'%"></span></span>'+
+         '<span class="chart-val">'+valText+'</span></div>';
+}
+
+/* ============================================================
+   5 · Auswertung rendern
+   ============================================================ */
+var groupSel='q01';
+
+function renderAuswertung(){
+  var body=document.getElementById('aus-body');
+  document.getElementById('stand').textContent = DATA.length? DATA.length+' Bögen' : '–';
+
+  if(!DATA.length){
+    body.innerHTML='<div class="empty"><p><strong>Noch keine Bögen erfasst.</strong></p>'+
+      '<p>Füllen Sie im Reiter „Fragebogen“ einen Bogen aus und klicken Sie auf <em>Bogen erfassen</em>. '+
+      'Jeder erfasste Bogen fließt sofort in die Statistik ein. Alternativ laden Sie über die Werkzeugleiste Beispieldaten '+
+      'oder lesen eine zuvor exportierte CSV-Datei ein.</p>'+
+      '<p class="small">Hinweis: Die Daten liegen nur in diesem Browserfenster. Exportieren Sie den Datensatz vor dem Schließen als CSV.</p></div>';
+    return;
+  }
+
+  var h='';
+  var gesamt=mean(valuesOf('q22')), n=DATA.length, npsv=nps();
+
+  /* Kennzahlen */
+  h+='<div class="doc-section"><h2><span class="doc-num">1</span>Kennzahlen im Überblick</h2>';
+  h+='<dl class="kpis">'+
+     '<div class="kpi"><dt>Erfasste Bögen</dt><dd>'+n+'</dd></div>'+
+     '<div class="kpi"><dt>Gesamtzufriedenheit</dt><dd>'+fmt(gesamt)+'<span class="unit">von 5</span></dd></div>'+
+     '<div class="kpi"><dt>Weiterempfehlung</dt><dd>'+(npsv?(npsv.wert>0?'+':'')+npsv.wert:'–')+'<span class="unit">NPS</span></dd></div>'+
+     '<div class="kpi"><dt>Rücklaufquote</dt><dd>'+fmt(n/640*100,1)+'<span class="unit">%</span></dd></div>'+
+     '</dl>';
+  h+='<p class="small">Rücklaufquote bezogen auf eine angenommene Grundgesamtheit von 640 Kaufverträgen. '+
+     (npsv?'Weiterempfehlung: '+npsv.pro+' Promotoren (9–10), '+npsv.pas+' Passive (7–8), '+npsv.det+' Kritiker (0–6).':'')+'</p>';
+  h+='</div>';
+
+  /* Themenblöcke */
+  h+='<div class="doc-section"><h2><span class="doc-num">2</span>Zufriedenheit je Themenblock</h2>';
+  h+='<div class="chart"><div class="chart-title">Mittelwerte, Skala 1 bis 5</div>';
+  BLOCKS.forEach(function(b){
+    var m=blockMean(b);
+    h+=bar(b.name,m||0,5,(m!==null&&m<3.5)?'low':'',fmt(m,1));
+  });
+  h+='<p class="chart-note">Grau dargestellte Blöcke liegen unter dem Schwellenwert von 3,5 und gelten als Handlungsfeld.</p></div>';
+
+  h+='<table><thead><tr><th>Themenblock</th><th>Enthaltene Fragen</th><th class="num">Mittelwert</th><th class="num">Antworten</th></tr></thead><tbody>';
+  BLOCKS.forEach(function(b){
+    var vals=[];b.keys.forEach(function(k){vals=vals.concat(valuesOf(k));});
+    h+='<tr><td>'+b.name+'</td><td>'+b.keys.map(function(k){return qByKey(k).n;}).join(', ')+'</td>'+
+       '<td class="num">'+fmt(mean(vals),2)+'</td><td class="num">'+vals.length+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+
+  /* Einzelfragen */
+  h+='<div class="doc-section"><h2><span class="doc-num">3</span>Skalenfragen im Einzelnen</h2>';
+  h+='<table><thead><tr><th class="num" style="width:40px">Nr.</th><th>Frage</th><th class="num">Mittelwert</th><th class="num">Antworten</th></tr></thead><tbody>';
+  ALL_Q.forEach(function(q){
+    if(q.type!=='scale')return;
+    var v=valuesOf(q.k);
+    h+='<tr><td class="num">'+q.n+'</td><td>'+q.short+'</td><td class="num">'+fmt(mean(v),2)+'</td><td class="num">'+v.length+'</td></tr>';
+  });
+  var v23=valuesOf('q23');
+  h+='<tr><td class="num">23</td><td>Weiterempfehlung (Skala 0 bis 10)</td><td class="num">'+fmt(mean(v23),2)+'</td><td class="num">'+v23.length+'</td></tr>';
+  h+='</tbody></table></div>';
+
+  /* Gruppenvergleich */
+  h+='<div class="doc-section"><h2><span class="doc-num">4</span>Vergleich der Kundengruppen</h2>';
+  h+='<p>Vergleichsmerkmal auswählen: <select id="groupSel">'+
+     GROUPS.map(function(g){return '<option value="'+g.key+'"'+(g.key===groupSel?' selected':'')+'>'+g.label+' (Frage '+qByKey(g.key).n+')</option>';}).join('')+
+     '</select></p>';
+
+  var gq=qByKey(groupSel), groups={};
+  DATA.forEach(function(r){
+    var g=r[groupSel]; if(g===undefined)g='keine Angabe';
+    if(!groups[g])groups[g]=[];
+    groups[g].push(r);
+  });
+  var names=Object.keys(groups);
+
+  h+='<table><thead><tr><th>'+GROUPS.filter(function(g){return g.key===groupSel;})[0].label+'</th><th class="num">Bögen</th>'+
+     BLOCKS.map(function(b){return '<th class="num">'+b.name+'</th>';}).join('')+'</tr></thead><tbody>';
+  names.forEach(function(nm){
+    h+='<tr><td>'+esc(nm)+'</td><td class="num">'+groups[nm].length+'</td>'+
+       BLOCKS.map(function(b){return '<td class="num">'+fmt(blockMean(b,groups[nm]),2)+'</td>';}).join('')+'</tr>';
+  });
+  h+='<tr><td><strong>Alle Bögen</strong></td><td class="num"><strong>'+n+'</strong></td>'+
+     BLOCKS.map(function(b){return '<td class="num"><strong>'+fmt(blockMean(b),2)+'</strong></td>';}).join('')+'</tr>';
+  h+='</tbody></table>';
+
+  h+='<div class="chart"><div class="chart-title">Gesamtzufriedenheit je Gruppe, Skala 1 bis 5</div>';
+  names.forEach(function(nm){
+    var m=mean(valuesOf('q22',groups[nm]));
+    h+=bar(esc(nm)+' <span style="color:var(--grey)">(n='+groups[nm].length+')</span>',m||0,5,(m!==null&&m<3.5)?'low':'',fmt(m,1));
+  });
+  h+='<p class="chart-note">Abweichungen von mehr als 0,5 Punkten gegenüber dem Gesamtmittel ('+fmt(gesamt,2)+') werden gesondert untersucht.</p></div>';
+  h+='</div>';
+
+  /* Häufigkeiten */
+  h+='<div class="doc-section"><h2><span class="doc-num">5</span>Häufigkeiten der geschlossenen Fragen</h2>';
+  ALL_Q.forEach(function(q){
+    if(q.type!=='single'&&q.type!=='multi')return;
+    var f=freq(q), max=0;
+    Object.keys(f.map).forEach(function(k){if(f.map[k]>max)max=f.map[k];});
+    h+='<div class="chart"><div class="chart-title">Frage '+q.n+' · '+q.text.replace(/<[^>]+>/g,'')+'</div>';
+    Object.keys(f.map).forEach(function(k){
+      var c=f.map[k], p=f.total?c/f.total*100:0;
+      h+=bar(esc(k),c,max,'',c+' | '+p.toFixed(0)+'%');
+    });
+    h+='<p class="chart-note">'+(q.type==='multi'?'Mehrfachnennungen, Prozentwerte bezogen auf '+f.total+' Bögen.':'Auswertbare Angaben: '+f.total+' von '+n+' Bögen.')+'</p></div>';
+  });
+  h+='</div>';
+
+  /* Freitexte */
+  var ft10=[],ft24=[];
+  DATA.forEach(function(r,i){
+    if(r.q10)ft10.push({i:i+1,t:r.q10});
+    if(r.q24)ft24.push({i:i+1,t:r.q24});
+  });
+  h+='<div class="doc-section"><h2><span class="doc-num">6</span>Antworten auf die offenen Fragen</h2>';
+  h+='<h3>Frage 10 · Was hat besonders gefallen? ('+ft10.length+' Nennungen)</h3>';
+  h+= ft10.length? ft10.map(function(x){return '<div class="freetext"><b>Bogen '+x.i+'</b>'+esc(x.t)+'</div>';}).join('') : '<p class="small">Keine Angaben.</p>';
+  h+='<h3>Frage 24 · Was sollen wir besser machen? ('+ft24.length+' Nennungen)</h3>';
+  h+= ft24.length? ft24.map(function(x){return '<div class="freetext"><b>Bogen '+x.i+'</b>'+esc(x.t)+'</div>';}).join('') : '<p class="small">Keine Angaben.</p>';
+  h+='<p class="small">Für die Dokumentation werden diese Antworten in Kategorien zusammengefasst und ausgezählt.</p></div>';
+
+  body.innerHTML=h;
+
+  var sel=document.getElementById('groupSel');
+  if(sel) sel.addEventListener('change',function(){groupSel=this.value;renderAuswertung();});
+}
+
+/* ============================================================
+   6 · CSV-Export und -Import
+   ============================================================ */
+function toCSV(){
+  var head=['Bogen'].concat(ALL_Q.map(function(q){return 'F'+q.n;}));
+  var lines=[head.join(';')];
+  DATA.forEach(function(r,i){
+    var row=[i+1];
+    ALL_Q.forEach(function(q){
+      var v=r[q.k];
+      if(v===undefined)v='';
+      else if(Array.isArray(v))v=v.join(' | ');
+      v=String(v).replace(/"/g,'""');
+      row.push(/[;"\n]/.test(v)?'"'+v+'"':v);
+    });
+    lines.push(row.join(';'));
+  });
+  return '\ufeff'+lines.join('\r\n');
+}
+function download(name,text){
+  var b=new Blob([text],{type:'text/csv;charset=utf-8;'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+}
+function parseCSV(text){
+  text=text.replace(/^\ufeff/,'');
+  var rows=[],cur=[],val='',q=false;
+  for(var i=0;i<text.length;i++){
+    var c=text[i];
+    if(q){
+      if(c==='"'){ if(text[i+1]==='"'){val+='"';i++;} else q=false; }
+      else val+=c;
+    } else if(c==='"'){q=true;}
+    else if(c===';'){cur.push(val);val='';}
+    else if(c==='\n'){cur.push(val);rows.push(cur);cur=[];val='';}
+    else if(c!=='\r'){val+=c;}
+  }
+  if(val!==''||cur.length){cur.push(val);rows.push(cur);}
+  return rows.filter(function(r){return r.length>1;});
+}
+function importCSV(text){
+  var rows=parseCSV(text);
+  if(rows.length<2)return 0;
+  var head=rows[0].map(function(x){return x.trim();});
+  var idx={};
+  ALL_Q.forEach(function(qq){
+    var p=head.indexOf('F'+qq.n);
+    if(p>=0)idx[qq.k]=p;
+  });
+  var added=0;
+  rows.slice(1).forEach(function(r){
+    var rec={},any=false;
+    ALL_Q.forEach(function(qq){
+      var p=idx[qq.k]; if(p===undefined)return;
+      var v=(r[p]||'').trim(); if(!v)return;
+      if(qq.type==='multi')rec[qq.k]=v.split('|').map(function(x){return x.trim();});
+      else if(qq.type==='scale'||qq.type==='scale11')rec[qq.k]=Number(v.replace(',','.'));
+      else rec[qq.k]=v;
+      any=true;
+    });
+    if(any){DATA.push(rec);added++;}
+  });
+  return added;
+}
+
+/* ============================================================
+   7 · Beispieldaten
+   ============================================================ */
+function demoData(count){
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+  function skew(base){ // Werte um base mit Streuung, 1..5
+    var v=Math.round(base+(Math.random()-0.5)*2.2);
+    return Math.max(1,Math.min(5,v));
+  }
+  var texte10=['Sehr geduldige Erklärung aller Funktionen.','Der Berater hatte Zeit und wirkte nicht gehetzt.','Ehrliche Auskunft zum Lieferzeitraum.','Probefahrt war unkompliziert möglich.','Freundlicher Empfang, guter Kaffee.','Klare Aufstellung des Angebots.'];
+  var texte24=['Schnellere Rückmeldung zum Liefertermin.','Preisaufstellung von Anfang an schriftlich.','Weniger Wechsel des Ansprechpartners.','Fahrzeug war bei der Übergabe nicht ganz sauber.','Finanzierungsangebot früher zusenden.','Zubehörpreise transparenter machen.'];
+  for(var i=0;i<count;i++){
+    var art=pick(['Neuwagen','Neuwagen','Jahres- oder Vorführwagen','Gebrauchtwagen','Gebrauchtwagen']);
+    var zahl=pick(['Barzahlung','Finanzierung','Finanzierung','Leasing','Anzahlung mit anschließender Rate']);
+    var basis = art==='Neuwagen'?4.3:(art==='Gebrauchtwagen'?3.6:4.0);
+    var r={};
+    r.q01=art;
+    r.q02=pick(['vor weniger als einem Monat','vor 1 bis 3 Monaten','vor 4 bis 6 Monaten','vor mehr als 6 Monaten']);
+    r.q03=pick(['Ja, mein erster Kauf','Nein, ich kaufe hier wiederholt','Nein, ich kaufe hier wiederholt']);
+    r.q04=[pick(['Empfehlung aus Familie oder Bekanntenkreis','Internetsuche oder Fahrzeugbörse','Werbung in Zeitung, Radio oder sozialen Medien','Vorbeifahrt am Standort','Ich war bereits Servicekunde'])];
+    if(Math.random()<0.3)r.q04.push('Internetsuche oder Fahrzeugbörse');
+    r.q05=skew(basis);r.q06=skew(basis+0.2);r.q08=skew(basis);
+    r.q07=pick(['trifft voll zu','trifft voll zu','trifft eher zu','trifft eher nicht zu']);
+    r.q09=pick(['genau richtig','genau richtig','genau richtig','zu kurz','zu lang']);
+    if(Math.random()<0.45)r.q10=pick(texte10);
+    r.q11=skew(basis-0.4);r.q12=skew(basis-0.6);
+    r.q13=pick(['ja, vollständig','ja, vollständig','teilweise','nein','weiß ich nicht mehr']);
+    r.q14=[pick(['niedriger Endpreis','hoher Preis für mein Altfahrzeug','günstige monatliche Rate','enthaltene Zusatzleistungen','nachvollziehbare Aufstellung'])];
+    if(Math.random()<0.5)r.q14.push('nachvollziehbare Aufstellung');
+    r.q15=zahl;
+    if(zahl!=='Barzahlung'){
+      r.q16=skew(basis-0.2);r.q17=skew(basis-0.1);
+      r.q18=pick(['trifft voll zu','trifft eher zu','trifft eher zu','trifft eher nicht zu','wurde mir nicht angeboten']);
+    }
+    r.q19=skew(basis-0.8);
+    r.q20=pick(['ja, vollständig','ja, vollständig','ja, vollständig','teilweise','nein']);
+    r.q21=skew(basis-0.3);
+    r.q22=skew(basis-0.1);
+    r.q23=Math.max(0,Math.min(10,Math.round(r.q22*2+(Math.random()-0.5)*3)));
+    if(Math.random()<0.4)r.q24=pick(texte24);
+    DATA.push(r);
+  }
+}
+
+/* ============================================================
+   8 · Bedienung
+   ============================================================ */
+var tabs=[
+  {btn:document.getElementById('tab-fb'),panel:document.getElementById('panel-fb')},
+  {btn:document.getElementById('tab-doku'),panel:document.getElementById('panel-doku')},
+  {btn:document.getElementById('tab-aus'),panel:document.getElementById('panel-aus')}
+];
+tabs.forEach(function(t,i){
+  t.btn.addEventListener('click',function(){
+    tabs.forEach(function(o,j){
+      o.btn.setAttribute('aria-selected',i===j?'true':'false');
+      o.panel.hidden=i!==j;
+    });
+    if(i===2)renderAuswertung();
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+renderFragebogen();
+form.addEventListener('change',updateStatus);
+form.addEventListener('input',updateStatus);
+updateStatus();
+
+document.getElementById('reset').addEventListener('click',function(){clearForm();updateStatus();toast('Eingaben gelöscht.');});
+document.getElementById('print').addEventListener('click',function(){window.print();});
+document.getElementById('print2').addEventListener('click',function(){window.print();});
+document.getElementById('print3').addEventListener('click',function(){window.print();});
+
+document.getElementById('submit').addEventListener('click',function(){
+  var rec=collect(), n=countAnswered(rec);
+  if(n===0){toast('Bitte zuerst Antworten eintragen.');return;}
+  DATA.push(rec);
+  clearForm();updateStatus();
+  toast('Bogen '+DATA.length+' erfasst ('+n+' Angaben).');
+  renderAuswertung();
+});
+document.getElementById('demo').addEventListener('click',function(){
+  demoData(32);renderAuswertung();
+});
+document.getElementById('clear').addEventListener('click',function(){
+  if(!DATA.length)return;
+  if(confirm('Alle '+DATA.length+' erfassten Bögen löschen?')){DATA=[];renderAuswertung();}
+});
+document.getElementById('export').addEventListener('click',function(){
+  if(!DATA.length){alert('Es sind keine Daten vorhanden.');return;}
+  download('kundenbefragung-rohdaten.csv',toCSV());
+});
+document.getElementById('import').addEventListener('change',function(e){
+  var f=e.target.files[0];if(!f)return;
+  var rd=new FileReader();
+  rd.onload=function(){
+    var added=importCSV(String(rd.result));
+    renderAuswertung();
+    alert(added?added+' Bögen eingelesen.':'Es konnten keine Daten gelesen werden. Bitte die exportierte CSV-Struktur verwenden.');
+  };
+  rd.readAsText(f,'utf-8');
+  e.target.value='';
+});
+renderAuswertung();
+</script>
+</body>
+</html>
