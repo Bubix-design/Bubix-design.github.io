@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kundenbefragung Kaufprozess – Fragebogen, Dokumentation, Auswertung</title>
+<title>Kundenbefragung Kaufprozess – Mustermann Autohaus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
   --ink:#1B1E21; --ink-2:#3D4247; --grey:#6E757C; --grey-light:#8E959B;
   --rule:#B9BEC3; --hair:#DDE0E3; --field:#F7F8F8;
   --accent:#1F4636; --accent-tint:#EDF2EF; --accent-line:#9FB6AC;
-  --ph:#F0EFEA; --ph-line:#C9C5B6;
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -24,9 +23,6 @@ body{
 h1,h2,h3{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;margin:0;line-height:1.2;font-weight:600;}
 p{margin:0 0 .75em;} ul,ol{margin:0 0 .75em;padding-left:1.15em;} li{margin-bottom:.3em;}
 strong{font-weight:600;}
-
-/* Platzhalter für Unternehmensangaben */
-.ph{background:var(--ph);border-bottom:1px solid var(--ph-line);padding:0 5px;color:#5C5747;white-space:nowrap;}
 
 /* Dokumentleiste */
 .docbar{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--rule);}
@@ -75,12 +71,10 @@ strong{font-weight:600;}
 .section-head h2{font-size:19px;}
 .section-head .of{font-size:12.5px;color:var(--grey);letter-spacing:.04em;text-transform:uppercase;font-variant-numeric:tabular-nums;}
 .section-note{font-size:14px;color:var(--grey);margin:9px 0 2px;}
-.q{display:grid;grid-template-columns:30px 1fr 128px;border-bottom:1px solid var(--hair);padding:15px 0 16px;column-gap:14px;}
+.q{display:grid;grid-template-columns:30px 1fr;border-bottom:1px solid var(--hair);padding:15px 0 16px;column-gap:14px;}
 .q-num{font-size:14px;font-weight:600;color:var(--grey);font-variant-numeric:tabular-nums;padding-top:1px;}
 .q-text{font-size:16px;font-weight:600;margin-bottom:10px;letter-spacing:-.005em;}
 .q-hint{display:block;font-weight:400;font-size:13.5px;color:var(--grey);margin-top:3px;}
-.q-kind{font-family:"Source Serif 4",serif;font-style:italic;font-size:12.5px;color:var(--grey-light);
-  text-align:right;padding-left:14px;border-left:1px solid var(--hair);line-height:1.45;}
 .opts{display:flex;flex-wrap:wrap;gap:7px 26px;}
 .opt{display:inline-flex;align-items:flex-start;gap:8px;font-size:15px;cursor:pointer;color:var(--ink-2);}
 .opt:hover{color:var(--ink);}
@@ -181,7 +175,6 @@ select{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(
   .docbar-inner,.letterhead,.title-area,.preamble,.section,.closing,.status,.doc-section,.toolbar,.empty{padding-left:20px;padding-right:20px;}
   .sheet{margin:10px;}
   .q{grid-template-columns:26px 1fr;}
-  .q-kind{grid-column:2;text-align:left;border-left:none;padding-left:0;margin-top:9px;}
   .scale-lab{display:none;}
   .chart-row{grid-template-columns:120px 1fr 46px;}
   .docbar-id{display:none;}
@@ -223,11 +216,11 @@ select{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(
 
   <header class="letterhead">
     <div class="lh-top">
-      <div class="firm"><span class="ph">[Name des Autohauses]</span>
-        <span><span class="ph">[Straße und Hausnummer]</span> · <span class="ph">[PLZ und Ort]</span> · Vertrieb Neu- und Gebrauchtfahrzeuge</span></div>
+      <div class="firm">Mustermann Autohaus
+        <span>Musterstraße 12 · 09111 Chemnitz · Vertrieb Neu- und Gebrauchtfahrzeuge</span></div>
       <div class="formref">
-        Formular <b><span class="ph">[Nr.]</span></b><br>
-        Stand: <b><span class="ph">[Datum]</span></b><br>
+        Formular <b>VK-12/2026</b><br>
+        Stand: <b>24.08.2026</b><br>
         Seite 1 von 4
       </div>
     </div>
@@ -241,8 +234,8 @@ select{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(
     <dl class="facts">
       <div><dt>Erhebungsart</dt><dd>Schriftlich und online</dd></div>
       <div><dt>Fragen</dt><dd>24</dd></div>
-      <div><dt>Bearbeitungsdauer</dt><dd>ca. 6 Minuten</dd></div>
-      <div><dt>Rücksendung bis</dt><dd><span class="ph">[Datum]</span></dd></div>
+      <div><dt>Bearbeitungsdauer</dt><dd>ca. 8 Minuten</dd></div>
+      <div><dt>Rücksendung bis</dt><dd>30.09.2026</dd></div>
     </dl>
   </div>
 
@@ -253,8 +246,8 @@ select{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(
     <div class="notice">
       <b>Hinweis zum Datenschutz.</b> Die Teilnahme ist freiwillig; aus einer Nichtteilnahme entstehen Ihnen keine Nachteile. Der Fragebogen wird anonym ausgewertet, eine Zuordnung zu einzelnen Personen oder Kaufverträgen ist nicht möglich und nicht vorgesehen. Bitte tragen Sie keinen Namen und keine Vertragsnummer ein. Die Angaben werden ausschließlich zusammengefasst ausgewertet und nach Abschluss der Auswertung gelöscht.
       <div class="notice-row">
-        <span>Verantwortlich: <span class="ph">[Name des Autohauses]</span>, Geschäftsleitung</span>
-        <span>Rückfragen: <span class="ph">[Telefonnummer]</span></span>
+        <span>Verantwortlich: Mustermann Autohaus, Geschäftsleitung</span>
+        <span>Rückfragen: 0371 4587-0</span>
       </div>
     </div>
   </div>
@@ -265,14 +258,14 @@ select{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(
     <h2>Vielen Dank für Ihre Zeit.</h2>
     <p>Ihre Rückmeldung wird im Verkaufsteam ausgewertet und besprochen. Eine Zusammenfassung der Ergebnisse und der daraus abgeleiteten Maßnahmen veröffentlichen wir auf unserer Internetseite.</p>
     <dl class="return">
-      <div><dt>Rücksendung per Post</dt><dd><span class="ph">[Name des Autohauses]</span><br>Stichwort Kundenbefragung<br><span class="ph">[Anschrift]</span></dd></div>
-      <div><dt>Persönliche Abgabe</dt><dd>Rückgabebox im Kundenempfang<br><span class="ph">[Öffnungszeiten]</span></dd></div>
-      <div><dt>Online ausfüllen</dt><dd><span class="ph">[Internetadresse]</span><br>Zugangscode <span class="ph">[Code]</span></dd></div>
-      <div><dt>Rückfragen</dt><dd><span class="ph">[Telefonnummer]</span><br><span class="ph">[E-Mail-Adresse]</span></dd></div>
+      <div><dt>Rücksendung per Post</dt><dd>Mustermann Autohaus<br>Stichwort Kundenbefragung<br>Musterstraße 12, 09111 Chemnitz</dd></div>
+      <div><dt>Persönliche Abgabe</dt><dd>Rückgabebox im Kundenempfang<br>Mo – Fr 8:00 – 18:00 Uhr, Sa 9:00 – 13:00 Uhr</dd></div>
+      <div><dt>Online ausfüllen</dt><dd>www.mustermann-autohaus.de/befragung<br>Zugangscode MA-2026</dd></div>
+      <div><dt>Rückfragen</dt><dd>0371 4587-0<br>kundenbefragung@mustermann-autohaus.de</dd></div>
     </dl>
     <div class="signature">
       <div class="sigline"></div>
-      <span class="ph">[Name]</span>, Geschäftsführung
+      Max Mustermann, Geschäftsführung
     </div>
   </div>
 
@@ -300,7 +293,7 @@ select{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(
   <div class="title-area">
     <div class="kicker">Begleitunterlage zum Fragebogen</div>
     <h1>Kundenbefragung zum Kaufprozess</h1>
-    <p class="lead">Ziel, Methodik, Durchführung und Auswertung der Befragung für ein Autohaus mit Neu- und Gebrauchtwagenvertrieb.</p>
+    <p class="lead">Ziel, Methodik, Durchführung und Auswertung der Befragung für das Mustermann Autohaus mit Neu- und Gebrauchtwagenvertrieb.</p>
   </div>
 
   <div class="doc-section">
@@ -379,7 +372,7 @@ select{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid var(
 
     <h3>Umgesetzte Gestaltungsregeln</h3>
     <ul>
-      <li>Bearbeitungsdauer wird in der Einleitung angegeben (etwa 6 Minuten)</li>
+      <li>Bearbeitungsdauer wird in der Einleitung angegeben (etwa 8 Minuten)</li>
       <li>deutlich mehr geschlossene als offene Fragen (22 zu 2)</li>
       <li>einheitliche Schriftart, einheitliche Skalenrichtung: links negativ, rechts positiv</li>
       <li>alle Zufriedenheitsfragen verwenden dieselbe fünfstufige Skala, damit die Werte vergleichbar bleiben</li>
@@ -529,71 +522,71 @@ var SECTIONS = [
 {id:'A',title:'A · Angaben zu Ihrem Fahrzeugkauf',range:'Fragen 1 – 4',
  note:'Diese Angaben helfen uns, Ihre Antworten richtig einzuordnen. Bitte kreuzen Sie jeweils Zutreffendes an.',
  qs:[
-  {n:1,k:'q01',type:'single',kind:'geschlossen<br>Alternativfrage',text:'Welche Fahrzeugart haben Sie gekauft?',
+  {n:1,k:'q01',type:'single',text:'Welche Fahrzeugart haben Sie gekauft?',
    opts:['Neuwagen','Jahres- oder Vorführwagen','Gebrauchtwagen']},
-  {n:2,k:'q02',type:'single',kind:'geschlossen',text:'Wann haben Sie Ihr Fahrzeug übernommen?',
+  {n:2,k:'q02',type:'single',text:'Wann haben Sie Ihr Fahrzeug übernommen?',
    opts:['vor weniger als einem Monat','vor 1 bis 3 Monaten','vor 4 bis 6 Monaten','vor mehr als 6 Monaten']},
-  {n:3,k:'q03',type:'single',kind:'Alternativfrage',text:'War dies Ihr erster Fahrzeugkauf in unserem Haus?',
+  {n:3,k:'q03',type:'single',text:'War dies Ihr erster Fahrzeugkauf in unserem Haus?',
    opts:['Ja, mein erster Kauf','Nein, ich kaufe hier wiederholt']},
-  {n:4,k:'q04',type:'multi',kind:'geschlossen<br>Mehrfachauswahl',text:'Wie sind Sie auf unser Autohaus aufmerksam geworden?',
+  {n:4,k:'q04',type:'multi',text:'Wie sind Sie auf unser Autohaus aufmerksam geworden?',
    hint:'Mehrfachnennung möglich.',
    opts:['Empfehlung aus Familie oder Bekanntenkreis','Internetsuche oder Fahrzeugbörse','Werbung in Zeitung, Radio oder sozialen Medien','Vorbeifahrt am Standort','Ich war bereits Servicekunde']}
  ]},
 {id:'B',title:'B · Beratung im Verkauf',range:'Fragen 5 – 10',
  note:'Bitte denken Sie an das Verkaufsgespräch vor dem Vertragsabschluss.',
  qs:[
-  {n:5,k:'q05',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden waren Sie mit Erreichbarkeit und Terminvergabe?',opts:ZUFR,short:'Erreichbarkeit und Terminvergabe'},
-  {n:6,k:'q06',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie beurteilen Sie die Fachkompetenz Ihres Verkaufsberaters?',
+  {n:5,k:'q05',type:'scale',text:'Wie zufrieden waren Sie mit Erreichbarkeit und Terminvergabe?',opts:ZUFR,short:'Erreichbarkeit und Terminvergabe'},
+  {n:6,k:'q06',type:'scale',text:'Wie beurteilen Sie die Fachkompetenz Ihres Verkaufsberaters?',
    opts:SKALA5('sehr gering','gering','mittel','hoch','sehr hoch'),short:'Fachkompetenz des Beraters'},
-  {n:7,k:'q07',type:'single',kind:'geschlossen<br>Zustimmungsfrage',text:'„Der Berater ist auf meine persönlichen Wünsche eingegangen.“',
+  {n:7,k:'q07',type:'single',text:'„Der Berater ist auf meine persönlichen Wünsche eingegangen.“',
    opts:['trifft voll zu','trifft eher zu','trifft eher nicht zu','trifft nicht zu']},
-  {n:8,k:'q08',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie verständlich wurden Ihnen Ausstattung und Technik erklärt?',
+  {n:8,k:'q08',type:'scale',text:'Wie verständlich wurden Ihnen Ausstattung und Technik erklärt?',
    opts:SKALA5('gar nicht verständlich','wenig','teils/teils','gut','sehr gut'),short:'Erklärung von Ausstattung und Technik'},
-  {n:9,k:'q09',type:'single',kind:'Alternativfrage',text:'Wie haben Sie die Dauer des Beratungsgesprächs empfunden?',
+  {n:9,k:'q09',type:'single',text:'Wie haben Sie die Dauer des Beratungsgesprächs empfunden?',
    opts:['zu kurz','genau richtig','zu lang']},
-  {n:10,k:'q10',type:'open',kind:'offene Frage',text:'Was hat Ihnen an der Beratung besonders gut gefallen?'}
+  {n:10,k:'q10',type:'open',text:'Was hat Ihnen an der Beratung besonders gut gefallen?'}
  ]},
 {id:'C',title:'C · Preisgestaltung',range:'Fragen 11 – 14',
  note:'Gemeint sind Fahrzeugpreis, Nachlässe, Zubehör sowie Nebenkosten wie Überführung und Zulassung.',
  qs:[
-  {n:11,k:'q11',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie bewerten Sie das Preis-Leistungs-Verhältnis Ihres Fahrzeugs?',
+  {n:11,k:'q11',type:'scale',text:'Wie bewerten Sie das Preis-Leistungs-Verhältnis Ihres Fahrzeugs?',
    opts:SKALA5('sehr schlecht','schlecht','teils/teils','gut','sehr gut'),short:'Preis-Leistungs-Verhältnis'},
-  {n:12,k:'q12',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie transparent war für Sie die Preisdarstellung im Angebot?',
+  {n:12,k:'q12',type:'scale',text:'Wie transparent war für Sie die Preisdarstellung im Angebot?',
    opts:SKALA5('gar nicht transparent','wenig','teils/teils','transparent','sehr transparent'),short:'Transparenz der Preisdarstellung'},
-  {n:13,k:'q13',type:'single',kind:'Kontrollfrage<br>zu Frage 12',text:'Wurde Ihnen der Gesamtpreis vor der Unterschrift vollständig aufgeschlüsselt?',
+  {n:13,k:'q13',type:'single',text:'Wurde Ihnen der Gesamtpreis vor der Unterschrift vollständig aufgeschlüsselt?',
    opts:['ja, vollständig','teilweise','nein','weiß ich nicht mehr']},
-  {n:14,k:'q14',type:'multi',kind:'geschlossen<br>Mehrfachauswahl',text:'Was war Ihnen beim Preis am wichtigsten?',hint:'Bitte höchstens zwei Angaben ankreuzen.',
+  {n:14,k:'q14',type:'multi',text:'Was war Ihnen beim Preis am wichtigsten?',hint:'Bitte höchstens zwei Angaben ankreuzen.',
    opts:['niedriger Endpreis','hoher Preis für mein Altfahrzeug','günstige monatliche Rate','enthaltene Zusatzleistungen','nachvollziehbare Aufstellung']}
  ]},
 {id:'D',title:'D · Finanzierung und Leasing',range:'Fragen 15 – 18',
- note:'Frage 15 ist eine Filterfrage. Wenn Sie bar bezahlt haben, fahren Sie bitte direkt mit Frage 19 fort.',
+ note:'Wenn Sie bar bezahlt haben, fahren Sie bitte direkt mit Frage 19 fort.',
  qs:[
-  {n:15,k:'q15',type:'single',kind:'Filterfrage',text:'Wie haben Sie Ihr Fahrzeug bezahlt?',
+  {n:15,k:'q15',type:'single',text:'Wie haben Sie Ihr Fahrzeug bezahlt?',
    opts:['Barzahlung','Finanzierung','Leasing','Anzahlung mit anschließender Rate'],arrow:{0:'→ weiter bei Frage 19'}},
-  {n:16,k:'q16',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie verständlich wurden Ihnen die Konditionen erklärt?',
+  {n:16,k:'q16',type:'scale',text:'Wie verständlich wurden Ihnen die Konditionen erklärt?',
    hint:'Rate, Laufzeit, Anzahlung, Schlussrate, effektiver Jahreszins.',
    opts:SKALA5('gar nicht verständlich','wenig','teils/teils','gut','sehr gut'),short:'Verständlichkeit der Konditionen'},
-  {n:17,k:'q17',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden waren Sie mit der Auswahl der angebotenen Varianten?',opts:ZUFR,short:'Auswahl der Finanzierungsvarianten'},
-  {n:18,k:'q18',type:'single',kind:'geschlossen<br>Zustimmungsfrage',text:'„Bei Zusatzprodukten wie Garantieverlängerung oder Versicherung hatte ich ausreichend Bedenkzeit.“',
+  {n:17,k:'q17',type:'scale',text:'Wie zufrieden waren Sie mit der Auswahl der angebotenen Varianten?',opts:ZUFR,short:'Auswahl der Finanzierungsvarianten'},
+  {n:18,k:'q18',type:'single',text:'„Bei Zusatzprodukten wie Garantieverlängerung oder Versicherung hatte ich ausreichend Bedenkzeit.“',
    opts:['trifft voll zu','trifft eher zu','trifft eher nicht zu','trifft nicht zu','wurde mir nicht angeboten']}
  ]},
 {id:'E',title:'E · Vertragsabwicklung und Übergabe',range:'Fragen 19 – 21',
  note:'Vom Vertragsabschluss bis zur Schlüsselübergabe.',
  qs:[
-  {n:19,k:'q19',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden waren Sie mit der Dauer bis zur Fahrzeugübergabe?',opts:ZUFR,short:'Dauer bis zur Übergabe'},
-  {n:20,k:'q20',type:'single',kind:'geschlossen',text:'Waren alle Unterlagen bei der Übergabe vollständig?',
+  {n:19,k:'q19',type:'scale',text:'Wie zufrieden waren Sie mit der Dauer bis zur Fahrzeugübergabe?',opts:ZUFR,short:'Dauer bis zur Übergabe'},
+  {n:20,k:'q20',type:'single',text:'Waren alle Unterlagen bei der Übergabe vollständig?',
    hint:'Kaufvertrag, Zulassungsbescheinigung, Serviceheft, Bedienungsanleitung.',
    opts:['ja, vollständig','teilweise','nein']},
-  {n:21,k:'q21',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden waren Sie mit der Fahrzeugübergabe insgesamt?',
+  {n:21,k:'q21',type:'scale',text:'Wie zufrieden waren Sie mit der Fahrzeugübergabe insgesamt?',
    hint:'Einweisung, Zustand des Fahrzeugs, Zeit für Ihre Fragen.',opts:ZUFR,short:'Fahrzeugübergabe insgesamt'}
  ]},
 {id:'F',title:'F · Gesamteindruck',range:'Fragen 22 – 24',
  note:'Zum Abschluss bitten wir Sie um Ihr Gesamturteil.',
  qs:[
-  {n:22,k:'q22',type:'scale',kind:'Skalenfrage<br>1 bis 5',text:'Wie zufrieden sind Sie mit dem gesamten Kaufprozess?',opts:ZUFR,short:'Gesamtzufriedenheit'},
-  {n:23,k:'q23',type:'scale11',kind:'Skalenfrage<br>0 bis 10',text:'Wie wahrscheinlich ist es, dass Sie unser Autohaus weiterempfehlen?',
+  {n:22,k:'q22',type:'scale',text:'Wie zufrieden sind Sie mit dem gesamten Kaufprozess?',opts:ZUFR,short:'Gesamtzufriedenheit'},
+  {n:23,k:'q23',type:'scale11',text:'Wie wahrscheinlich ist es, dass Sie unser Autohaus weiterempfehlen?',
    ends:['0 = sehr unwahrscheinlich','10 = sehr wahrscheinlich'],short:'Weiterempfehlung'},
-  {n:24,k:'q24',type:'open',kind:'offene Frage',text:'Was sollten wir bei Ihrem nächsten Fahrzeugkauf besser machen?'}
+  {n:24,k:'q24',type:'open',text:'Was sollten wir bei Ihrem nächsten Fahrzeugkauf besser machen?'}
  ]}
 ];
 
@@ -652,7 +645,7 @@ function renderFragebogen(){
       } else {
         html+='<div class="lines"><textarea rows="3" name="'+q.k+'" aria-label="Antwort zu Frage '+q.n+'"></textarea></div>';
       }
-      html+='</div><div class="q-kind">'+q.kind+'</div></div>';
+      html+='</div></div>';
     });
     html+='</div>';
   });
